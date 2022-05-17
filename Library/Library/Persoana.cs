@@ -15,6 +15,17 @@ namespace Library
         string NrTelefon;
         string AdresaMail;
         //Constructor fara parametrii
+
+        //Proprietati auto-implemented 
+        public string Nume { get; set; }
+        public string Prenume { get; set; }
+        public int Varsta { get; set; }
+        public int nrCartiImprumutate { get; set; }
+        public string nrTelefon { get; set; }
+        public string adresaMail { get; set; }
+        public string NumeComplet { get { return nume + " " + prenume; } }
+
+
         public Persoana()
         {
             nume = string.Empty;
@@ -34,6 +45,29 @@ namespace Library
             NrTelefon = _NrTelefon;
             AdresaMail = _AdresaMail;
         }
+
+        public Persoana(string sirr)
+        {
+            string[] buff = sirr.Split(',');
+            nume = buff[0];
+            prenume = buff[1];
+            varsta = Convert.ToInt32(buff[2]);
+            NrCartiImprumutate = Convert.ToInt32(buff[3]);
+            NrTelefon = buff[4];
+            AdresaMail = buff[5];
+        }
+
+        public string compara(Persoana p2)
+        {
+            if (this.NrCartiImprumutate > p2.NrCartiImprumutate)
+                return string.Format("{0} a imprumutat mai multe carti decat: {1}", this.NumeComplet, p2.NumeComplet);
+            else
+                if (this.NrCartiImprumutate == p2.NrCartiImprumutate)
+                return string.Format("{0} a imprumutat la fel de multe carti ca si: {1}", this.NumeComplet, p2.NumeComplet);
+            else
+                return string.Format("{0} a imprumutat mai putine carti decat: {1}", this.NumeComplet, p2.NumeComplet);
+        }
+
         //Afisare info
         public string InfoPersoana()
         {
